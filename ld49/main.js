@@ -22771,7 +22771,7 @@ var createLvl1 = (world3) => {
     pos: {x: 1, y: -1},
     [WasdController]: true
   }));
-  const casterCount = 3;
+  const casterCount = 8;
   world3.addEntity(createCaster({
     pos: {x: Math.random() * 10 - 5, y: Math.random() * 10 - 5}
   }));
