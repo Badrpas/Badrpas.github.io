@@ -1,0 +1,30 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - master
+      - ci
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Le test
+        uses: Badrpas/gh-pages-index-compiler@v1.2.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit
+        run: |
+          git config --global user.name "Badrpas"
+          git config --global user.email "Badrpas@users.noreply.github.com"
+          git add links.json
+          git commit -am "Automated update"
+          git push
