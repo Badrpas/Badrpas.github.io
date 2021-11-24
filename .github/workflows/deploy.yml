@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Le test
-        uses: Badrpas/gh-pages-index-compiler@v1.1.0
+        uses: Badrpas/gh-pages-index-compiler@v1.1.1
 
       - name: Commit
         run: |
