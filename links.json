@@ -1,0 +1,20 @@
+[
+  {
+    "indexPath": "AHCalc/index.html",
+    "fileName": "index.html",
+    "dir": "AHCalc",
+    "description": "Auction House cut calculator\n"
+  },
+  {
+    "indexPath": "ld38/index.html",
+    "fileName": "index.html",
+    "dir": "ld38",
+    "description": ""
+  },
+  {
+    "indexPath": "ld49/index.html",
+    "fileName": "index.html",
+    "dir": "ld49",
+    "description": "LudumDare 49 Compo game"
+  }
+]
