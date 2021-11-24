@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Hallo</title>
+  <title>Hallo</title>
 </head>
 <body>
 
-<h1>Well hello there!</h1>
+  <h1>Well hello there!</h1>
 
-<a href="ld38">To Ludum Dare 38 Game (unpublished)</a>
-<a href="AHCalc">To AH Calc</a>
+  <script>
+    fetch('links.json')
+      .then(r => r.json())
+      .then(entries => {
+        for (const entry of entries) {
+          const el = document.createElement('div')
+          el.innerHTML = `
+          <a href="${entry.dir}">${entry.description || entry.dir}</a>
+          `;
+          document.body.append(el);
+        }
+      });
+  </script>
 
 </body>
 </html>
