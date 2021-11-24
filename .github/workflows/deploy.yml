@@ -13,6 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Le test
         uses: Badrpas/gh-pages-index-compiler@v1.1.5
