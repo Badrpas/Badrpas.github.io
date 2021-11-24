@@ -16,6 +16,8 @@ jobs:
 
       - name: Le test
         uses: Badrpas/gh-pages-index-compiler@v1.1.3
+        with:
+          token: ${{ GITHUB_TOKEN }}
 
       - name: Commit
         run: |
