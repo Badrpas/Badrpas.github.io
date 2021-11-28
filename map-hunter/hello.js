@@ -9171,13 +9171,24 @@ var ApiService = class {
   }
 };
 
-// build/services/current-view-center-service.js
-var CurrentViewCenterService = class {
-  constructor(map3) {
-    this.map = map3;
-  }
+// build/services/current-location-service.js
+var CurrentLocationService = class {
   async get() {
-    return this.map.getCenter();
+    return await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position);
+        const {latitude, longitude} = position.coords;
+        const pos = {
+          lat: latitude,
+          lng: longitude,
+          raw: position
+        };
+        resolve(pos);
+      }, (error) => {
+        console.log(error);
+        reject(error);
+      });
+    });
   }
 };
 
@@ -9194,7 +9205,7 @@ tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map2);
 control.scale({imperial: false, metric: true}).addTo(map2);
 var api = new ApiService();
-var locationService = new CurrentViewCenterService(map2);
+var locationService = new CurrentLocationService();
 async function onMapClick(e) {
   console.log(e);
   api.getCellId(e.latlng).then((bounds2) => {
