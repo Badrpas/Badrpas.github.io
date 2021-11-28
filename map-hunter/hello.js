@@ -9208,6 +9208,7 @@ var api = new ApiService();
 var locationService = new CurrentLocationService();
 async function onMapClick(e) {
   console.log(e);
+  return;
   api.getCellId(e.latlng).then((bounds2) => {
     const [a, b, c, d] = bounds2;
     rectangle([[a, b], [c, d]]).addTo(map2);
