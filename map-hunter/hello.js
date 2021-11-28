@@ -3341,18 +3341,18 @@ var leafletSrc = createCommonjsModule(function(module, exports) {
       return _sqClosestPointOnSegment(p, p1, p2);
     }
     function _simplifyDP(points, sqTolerance) {
-      var len = points.length, ArrayConstructor = typeof Uint8Array !== void 0 + "" ? Uint8Array : Array, markers = new ArrayConstructor(len);
-      markers[0] = markers[len - 1] = 1;
-      _simplifyDPStep(points, markers, sqTolerance, 0, len - 1);
+      var len = points.length, ArrayConstructor = typeof Uint8Array !== void 0 + "" ? Uint8Array : Array, markers2 = new ArrayConstructor(len);
+      markers2[0] = markers2[len - 1] = 1;
+      _simplifyDPStep(points, markers2, sqTolerance, 0, len - 1);
       var i, newPoints = [];
       for (i = 0; i < len; i++) {
-        if (markers[i]) {
+        if (markers2[i]) {
           newPoints.push(points[i]);
         }
       }
       return newPoints;
     }
-    function _simplifyDPStep(points, markers, sqTolerance, first, last) {
+    function _simplifyDPStep(points, markers2, sqTolerance, first, last) {
       var maxSqDist = 0, index2, i, sqDist;
       for (i = first + 1; i <= last - 1; i++) {
         sqDist = _sqClosestPointOnSegment(points[i], points[first], points[last], true);
@@ -3362,9 +3362,9 @@ var leafletSrc = createCommonjsModule(function(module, exports) {
         }
       }
       if (maxSqDist > sqTolerance) {
-        markers[index2] = 1;
-        _simplifyDPStep(points, markers, sqTolerance, first, index2);
-        _simplifyDPStep(points, markers, sqTolerance, index2, last);
+        markers2[index2] = 1;
+        _simplifyDPStep(points, markers2, sqTolerance, first, index2);
+        _simplifyDPStep(points, markers2, sqTolerance, index2, last);
       }
     }
     function _reducePoints(points, sqTolerance) {
@@ -9137,8 +9137,11 @@ axios_1.default = _default;
 var axios$1 = axios_1;
 var axios_default = axios$1;
 
+// build/_snowpack/env.js
+var API_URL = "http://localhost:8080/api";
+
 // build/constants.js
-var API_HOST = "http://localhost:8080/api";
+var API_HOST = API_URL;
 
 // build/services/api-service.js
 var ApiService = class {
@@ -9160,17 +9163,38 @@ var ApiService = class {
     });
     return resp.data;
   }
+  async hitAt({lat, lng}) {
+    const resp = await axios_default.post(`${API_HOST}/user-pos`, null, {
+      params: {lat, lng}
+    });
+    return resp.data;
+  }
+};
+
+// build/services/current-view-center-service.js
+var CurrentViewCenterService = class {
+  constructor(map3) {
+    this.map = map3;
+  }
+  async get() {
+    return this.map.getCenter();
+  }
 };
 
 // build/hello.js
 window.L = leaflet_exports;
-var map2 = window.map = map("map").setView({lon: 0, lat: 50}, 3.5, {});
+var initPos = {
+  lat: 47.8555,
+  lon: 35.2916
+};
+var map2 = window.map = map("map").setView(initPos, 3.5, {});
 tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
   attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
 }).addTo(map2);
 control.scale({imperial: false, metric: true}).addTo(map2);
 var api = new ApiService();
+var locationService = new CurrentViewCenterService(map2);
 async function onMapClick(e) {
   console.log(e);
   api.getCellId(e.latlng).then((bounds2) => {
@@ -9192,22 +9216,32 @@ async function onMapClick(e) {
   console.log(points);
 }
 map2.on("click", onMapClick);
-navigator.geolocation.getCurrentPosition((position) => {
-  console.log(position);
-  const {latitude, longitude} = position.coords;
-  let pos = {
-    lat: latitude,
-    lng: longitude
-  };
-  map2.setView(pos, 10, {animate: true});
-  marker(pos).bindPopup(`Tityt (accuracy: ${position.coords.accuracy})`).addTo(map2);
-  circle(pos, {
-    color: "red",
-    fillColor: "#f03",
-    fillOpacity: 0.5,
-    radius: position.coords.accuracy
-  }).addTo(map2);
-}, (error) => {
-  console.log(error);
-});
+var markers = [];
+async function hit() {
+  const pos = await locationService.get();
+  map2.setView(pos, 15, {animate: true});
+  setPlayerMarker(pos);
+  const resp = await api.hitAt(pos);
+  for (const marker2 of markers)
+    marker2.removeFrom(map2);
+  markers.splice(0, markers.length);
+  for (const point2 of resp.points) {
+    const marker2 = circle(point2, {
+      color: "blue",
+      fillColor: "#f03",
+      fillOpacity: 0.5,
+      radius: 30
+    }).addTo(map2);
+    markers.push(marker2);
+  }
+  setTimeout(hit, 4e3);
+}
+hit();
+function setPlayerMarker(pos) {
+  if (!setPlayerMarker._m) {
+    setPlayerMarker._m = marker(pos).bindPopup(`Ti tyt`).addTo(map2);
+  }
+  setPlayerMarker._m.setLatLng(pos).update();
+  return setPlayerMarker._m;
+}
 //# sourceMappingURL=hello.js.map
