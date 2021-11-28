@@ -9233,6 +9233,7 @@ async function hit() {
   map2.setView(pos, 15, {animate: true});
   setPlayerMarker(pos);
   const resp = await api.hitAt(pos);
+  document.getElementById("score").innerText = resp.score;
   for (const marker2 of markers)
     marker2.removeFrom(map2);
   markers.splice(0, markers.length);
