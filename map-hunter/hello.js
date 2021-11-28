@@ -9138,7 +9138,7 @@ var axios$1 = axios_1;
 var axios_default = axios$1;
 
 // build/_snowpack/env.js
-var API_URL = "http://localhost:8080/api";
+var API_URL = "https://map-hunter.herokuapp.com/api";
 
 // build/constants.js
 var API_HOST = API_URL;
