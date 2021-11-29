@@ -1,24 +1,81 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Hallo</title>
+  <title>What's that?</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+  <link rel="stylesheet" href="static/main.css">
 </head>
 <body>
 
   <h1>Well hello there!</h1>
+  <div style="margin-bottom: 10px">
+    <span>I host some of my projects here</span>
+  </div>
+
+  <div id="project-list">
+
+  </div>
+
+  <div id="entry-template">
+    <div class="entry-container">
+      <a class="entry highlight" href="{{ href }}" target="_blank" repo-link="{{ repoLink }}">
+        <div>
+          <span class="title">{{ description }}</span>
+        </div>
+        <div>
+          <span class="info">{{ info }}</span>
+        </div>
+      </a>
+      <a href="{{ repoLink }}" class="repo-link highlight" target="_blank">
+        <div>
+          <img class="gh-logo" src="static/gh-logo.png" alt="repo">
+        </div>
+      </a>
+    </div>
+  </div>
 
   <script>
     fetch('links.json')
       .then(r => r.json())
-      .then(entries => {
-        for (const entry of entries) {
-          const el = document.createElement('div')
-          el.innerHTML = `
-          <a href="${entry.dir}">${entry.description || entry.dir}</a>
-          `;
-          document.body.append(el);
-        }
+      .then(entries => entries.forEach(renderEntry))
+      .catch(err => {
+        console.error(err);
+        // language=HTML
+        renderHtml(`
+          <code>Couldn't load project list :(</code>
+        `);
       });
+
+    const templateEl = document.getElementById('entry-template');
+    const templateRaw = templateEl.innerHTML;
+
+    const template = createTemplate(templateRaw);
+
+    function renderEntry (entry) {
+      const html = template({
+        href: entry.dir,
+        description: entry.repo?.description || entry.description || entry.dir,
+        repoLink: entry.repo?.html_url || '',
+      });
+
+      renderHtml(html, document.getElementById('project-list'));
+    }
+
+    function createTemplate (src) {
+      return (arg = {}) => {
+        return Object.entries(arg)
+          .reduce((out, [key, value]) => {
+            return out.replace(new RegExp(`{{\\s*${key}\\s*}}`, 'g'), value);
+          }, src)
+          .replace(/{{\s*[\w\d_]+?\s*}}/g, '');
+      };
+    }
+    function renderHtml (html, containerEl = document.body) {
+      const tempEl = document.createElement('div');
+      tempEl.innerHTML = html;
+
+      containerEl.append(...tempEl.children);
+    }
   </script>
 
 </body>

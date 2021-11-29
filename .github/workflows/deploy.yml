@@ -3,8 +3,7 @@ name: CD
 on:
   push:
     branches:
-      - master
-      - ci
+      - "*"
 
 jobs:
   build:
@@ -17,7 +16,7 @@ jobs:
           fetch-depth: 0
 
       - name: Le test
-        uses: Badrpas/gh-pages-index-compiler@v1.2.0
+        uses: Badrpas/gh-pages-index-compiler@v1.3.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 

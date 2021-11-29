@@ -1,0 +1,40 @@
+#entry-template {
+  display: none;
+}
+
+.entry {
+  margin-left: -20px;
+  min-width: 180px
+}
+
+.entry:not([repo-link='']) {
+  padding-right: 20px;
+}
+
+.highlight {
+  display: inline-block;
+  padding: 30px 50px 30px 20px;
+  cursor: pointer;
+  transition: background 0.5s;
+}
+
+.highlight:hover {
+  background:#1a232d;
+}
+
+
+
+
+.repo-link {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.repo-link[href=''] {
+  display: none;
+}
+
+
+.gh-logo {
+  height: 1em;
+}
