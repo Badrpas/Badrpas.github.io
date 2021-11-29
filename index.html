@@ -37,6 +37,11 @@
   <script>
     fetch('links.json')
       .then(r => r.json())
+      .then(entries => {
+        return entries
+          .map(entry => (entry.changedAt = new Date(entry.changedAt), entry))
+          .sort((a, b) => b.changedAt.getTime() - a.changedAt.getTime());
+      })
       .then(entries => entries.forEach(renderEntry))
       .catch(err => {
         console.error(err);
