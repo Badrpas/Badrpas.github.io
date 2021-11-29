@@ -4,14 +4,16 @@
     "fileName": "index.html",
     "dir": "AHCalc",
     "description": "Auction House cut calculator\n",
-    "repo": null
+    "repo": null,
+    "changedAt": "2018-01-30T04:19:00.000Z"
   },
   {
     "indexPath": "ld38/index.html",
     "fileName": "index.html",
     "dir": "ld38",
     "description": "",
-    "repo": null
+    "repo": null,
+    "changedAt": "2017-04-23T16:04:18.000Z"
   },
   {
     "indexPath": "ld49/index.html",
@@ -23,13 +25,15 @@
       "full_name": "Badrpas/ld-49-unstable",
       "html_url": "https://github.com/Badrpas/ld-49-unstable",
       "description": "LudumDare 49 Compo game"
-    }
+    },
+    "changedAt": "2021-10-03T23:05:28.000Z"
   },
   {
     "indexPath": "map-hunter/index.html",
     "fileName": "index.html",
     "dir": "map-hunter",
     "description": "Geo-location based point hunt game\n",
-    "repo": null
+    "repo": null,
+    "changedAt": "2021-11-28T22:24:37.000Z"
   }
 ]
