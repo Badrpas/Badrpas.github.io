@@ -3,24 +3,33 @@
     "indexPath": "AHCalc/index.html",
     "fileName": "index.html",
     "dir": "AHCalc",
-    "description": "Auction House cut calculator\n"
+    "description": "Auction House cut calculator\n",
+    "repo": null
   },
   {
     "indexPath": "ld38/index.html",
     "fileName": "index.html",
     "dir": "ld38",
-    "description": ""
+    "description": "",
+    "repo": null
   },
   {
     "indexPath": "ld49/index.html",
     "fileName": "index.html",
     "dir": "ld49",
-    "description": "LudumDare 49 Compo game"
+    "description": "",
+    "repo": {
+      "name": "ld-49-unstable",
+      "full_name": "Badrpas/ld-49-unstable",
+      "description": "LudumDare 49 Compo game",
+      "url": "https://api.github.com/repos/Badrpas/ld-49-unstable"
+    }
   },
   {
     "indexPath": "map-hunter/index.html",
     "fileName": "index.html",
     "dir": "map-hunter",
-    "description": "Geo-location based point hunt game\n"
+    "description": "Geo-location based point hunt game\n",
+    "repo": null
   }
 ]
