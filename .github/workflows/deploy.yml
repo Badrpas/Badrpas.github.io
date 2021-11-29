@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
 
       - name: Le test
-        uses: Badrpas/gh-pages-index-compiler@v1.3.0
+        uses: Badrpas/gh-pages-index-compiler@v1.3.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
