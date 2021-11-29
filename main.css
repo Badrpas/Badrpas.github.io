@@ -1,3 +1,15 @@
 #entry-template {
   display: none;
 }
+
+.entry {
+  display: block;
+  margin-left: -20px;
+  padding: 30px 20px 30px 20px;
+  cursor: pointer;
+  transition: background 0.5s;
+}
+
+.entry:hover {
+  background:#1a232d;
+}

@@ -8,18 +8,31 @@
 <body>
 
   <h1>Well hello there!</h1>
-  <span>I've got some projects hosted here:</span>
+  <div style="margin-bottom: 10px">
+    <span>I host some of my projects here</span>
+  </div>
+
+  <div id="project-list">
+
+  </div>
 
   <div id="entry-template">
-    <div class="entry">
-      <a href="{{href}}">{{description}}</a>
-    </div>
+    <a class="entry" href="{{href}}" target="_blank">
+      <span>{{description}}</span>
+    </a>
   </div>
 
   <script>
-    fetch('links.json')
+    fetch('links.jsonasdasd')
       .then(r => r.json())
-      .then(entries => entries.forEach(renderEntry));
+      .then(entries => entries.forEach(renderEntry))
+      .catch(err => {
+        console.error(err);
+        // language=HTML
+        renderHtml(`
+          <code>Couldn't load project list :(</code>
+        `);
+      });
 
     const templateEl = document.getElementById('entry-template');
     const templateRaw = templateEl.innerHTML;
@@ -29,10 +42,10 @@
     function renderEntry (entry) {
       const html = template({
         href: entry.dir,
-        description: entry.description || entry.dir,
+        description: entry.repo?.description || entry.description || entry.dir,
       });
 
-      renderHtml(html);
+      renderHtml(html, document.getElementById('project-list'));
     }
 
     function createTemplate (src) {
