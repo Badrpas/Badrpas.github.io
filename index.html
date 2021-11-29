@@ -3,7 +3,7 @@
 <head>
   <title>What's that?</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
-  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="static/main.css">
 </head>
 <body>
 
@@ -17,9 +17,21 @@
   </div>
 
   <div id="entry-template">
-    <a class="entry" href="{{href}}" target="_blank">
-      <span>{{description}}</span>
-    </a>
+    <div class="entry-container">
+      <a class="entry highlight" href="{{ href }}" target="_blank" repo-link="{{ repoLink }}">
+        <div>
+          <span class="title">{{ description }}</span>
+        </div>
+        <div>
+          <span class="info">{{ info }}</span>
+        </div>
+      </a>
+      <a href="{{ repoLink }}" class="repo-link highlight" target="_blank">
+        <div>
+          <img class="gh-logo" src="static/gh-logo.png" alt="repo">
+        </div>
+      </a>
+    </div>
   </div>
 
   <script>
@@ -43,6 +55,7 @@
       const html = template({
         href: entry.dir,
         description: entry.repo?.description || entry.description || entry.dir,
+        repoLink: entry.repo?.html_url || '',
       });
 
       renderHtml(html, document.getElementById('project-list'));
@@ -50,9 +63,11 @@
 
     function createTemplate (src) {
       return (arg = {}) => {
-        return Object.entries(arg).reduce((out, [key, value]) => {
-          return out.replace(new RegExp(`{{${key}}}`, 'g'), value);
-        }, src);
+        return Object.entries(arg)
+          .reduce((out, [key, value]) => {
+            return out.replace(new RegExp(`{{\\s*${key}\\s*}}`, 'g'), value);
+          }, src)
+          .replace(/{{\s*[\w\d_]+?\s*}}/g, '');
       };
     }
     function renderHtml (html, containerEl = document.body) {
