@@ -23,7 +23,7 @@
   </div>
 
   <script>
-    fetch('links.jsonasdasd')
+    fetch('links.json')
       .then(r => r.json())
       .then(entries => entries.forEach(renderEntry))
       .catch(err => {
