@@ -3,9 +3,14 @@
     "indexPath": "AHCalc/index.html",
     "fileName": "index.html",
     "dir": "AHCalc",
-    "description": "Auction House cut calculator\n",
-    "repo": null,
-    "changedAt": "2018-01-30T04:19:00.000Z"
+    "description": "",
+    "repo": {
+      "name": "AHCalc",
+      "full_name": "Badrpas/AHCalc",
+      "html_url": "https://github.com/Badrpas/AHCalc",
+      "description": null
+    },
+    "changedAt": "2022-11-10T21:58:27.000Z"
   },
   {
     "indexPath": "ld38/index.html",
