@@ -7,34 +7,38 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>AH Calc</title>
   
-  <script type="module" crossorigin src="./assets/index.33532474.js"></script>
+  <script type="module" crossorigin src="./assets/index.988ce49e.js"></script>
+  <link rel="stylesheet" href="./assets/index.d677c792.css">
 </head>
 
 <body>
   
-  <div name="calc">
-
-    <label for="buy">buy: </label>
-    <input type="text" name="" id="buy">
-    <br>
-    <label for="even">even: </label>
-    <input type="text" name="" id="even">
-    <br>
-    <label for="post">post: </label>
-    <input type="text" name="" id="post">
-    <label>(<span id="profit"></span>) x</label>
-
-    <input type="text" name="" id="multiplier">
-    <label> = <span id="totalprofit"></span></label>
-
+  <div id="left">
+    <div name="calc">
+      <label for="buy">buy: </label>
+      <input type="text" name="" id="buy">
+      <br>
+      <label for="even">even: </label>
+      <input type="text" name="" id="even">
+      <br>
+      <label for="post">post: </label>
+      <input type="text" name="" id="post">
+      <label>(<span id="profit"></span>) x</label>
+      <input type="text" name="" id="multiplier">
+      <label> = <span id="totalprofit"></span></label>
+    </div>
+    <div name="history">
+      <table id="history">
+      </table>
+    </div>
   </div>
 
-  <div name="history">
-    <table id="history">
-
-    </table>
+  <div id="right">
+    <button id="add-eval">new eval</button>
+    <div id="evals">
+    </div>
   </div>
-  
+
 </body>
 
 </html>
